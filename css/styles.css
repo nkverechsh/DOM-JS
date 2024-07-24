@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 25px;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  border: 5px dotted rgb(2, 64, 64);
+  border-top: none;
+  border-radius: 45%;
+  margin-bottom: 1em;
+}
+
+#list {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 21px;
+  border: medium solid black;
+}
+
+#name-input::-moz-placeholder {
+  color: rgb(129, 31, 31);
+}
+
+#name-input::placeholder {
+  color: rgb(129, 31, 31);
+}
+
+.error {
+  background-color: red;
+}
+
+.all {
+  background-color: red;
+}/*# sourceMappingURL=styles.css.map */
