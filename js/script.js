@@ -20,6 +20,8 @@ const initEventListeners = () => {
 
 // добавляет обработчик клика на конкретный элемент в списке
         studentElement.addEventListener("click", () => {
+            
+// вешаем обработчик на первый найденный div
             const bodyElement = allElement[0];
             bodyElement.style.backgroundColor = colorInputElement.value;
             
