@@ -11,9 +11,6 @@ body {
 .title {
   display: flex;
   justify-content: center;
-  border: 5px dotted rgb(2, 64, 64);
-  border-top: none;
-  border-radius: 45%;
   margin-bottom: 1em;
 }
 

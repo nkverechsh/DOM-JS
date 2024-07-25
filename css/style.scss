@@ -11,9 +11,6 @@ body {
 .title {
   display: flex;
   justify-content: center;
-  border: 5px dotted rgb(2, 64, 64);
-  border-top: none;
-  border-radius: 45%;
   margin-bottom: 1em;
 }
 
@@ -23,14 +20,14 @@ body {
   border: medium solid black;
 }
 
+#name-input::-moz-placeholder {
+  color: rgb(129, 31, 31);
+}
+
 #name-input::placeholder {
   color: rgb(129, 31, 31);
 }
 
 .error {
-  background-color: red;
-}
-
-.all {
   background-color: red;
 }
