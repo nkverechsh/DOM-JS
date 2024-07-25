@@ -10,6 +10,7 @@ const allElement = document.querySelectorAll("body");
 
 const studentElements = document.querySelectorAll(".student");
 const studentNameElements = document.querySelectorAll("student-name");
+
 // функция добавляет обработчик событий на динамические элементы с классом student (для дальнейшего удаления строки (элемента))
 const initEventListeners = () => {
 // находит все элементы с классом student в разметке
