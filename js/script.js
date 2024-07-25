@@ -9,8 +9,8 @@ const colorInputElement = document.getElementById("color-input");
 const allElement = document.querySelectorAll("body");
 
 const studentElements = document.querySelectorAll(".student");
-
-// функция добавляет обработчик событий на динамические элементы (для дальнейшего удаления строки (элемента))
+const studentNameElements = document.querySelectorAll("student-name");
+// функция добавляет обработчик событий на динамические элементы с классом student (для дальнейшего удаления строки (элемента))
 const initEventListeners = () => {
 // находит все элементы с классом student в разметке
     const studentElements = document.querySelectorAll(".student");
@@ -20,17 +20,35 @@ const initEventListeners = () => {
 
 // добавляет обработчик клика на конкретный элемент в списке
         studentElement.addEventListener("click", () => {
-            
-// вешаем обработчик на первый найденный div
-            const bodyElement = allElement[0];
-            bodyElement.style.backgroundColor = colorInputElement.value;
-            
-            console.log(studentElement.innerHTML);
+
+// вешаем обработчик на первый найденный div для окрашивания фона страницы в выбранный цвет
+            // const bodyElement = allElement[0];
+            // bodyElement.style.backgroundColor = colorInputElement.value;
+
+// обращаемся к свойству "dastaset".color data-атрибута "data-color" в разметке
+            console.log(studentElement.dataset.color);
         });
     }
 };
 
 initEventListeners();
+
+const nameEventListeners = () => {
+    // находит все элементы с классом student в разметке
+        const studentNameElements = document.querySelectorAll(".student-name");
+    
+    // проходим циклом for of по каждому элементу в списке
+        for(const studentNameElement of studentNameElements) {
+    
+    // добавляет обработчик клика на конкретный элемент в списке
+            studentNameElement.addEventListener("click", () => {
+    
+                confirm("Привет, " + studentNameElement.dataset.name);
+            });
+        }
+    };
+
+    nameEventListeners();
 
 titleElement.addEventListener("click", () => {
     // нам нужно добавить обработчик события на кнопку "добавить" .addEventListener -
@@ -51,9 +69,9 @@ buttonElement.addEventListener("click", () => {
     // const oldList = listElement.innerHTML;
 
         listElement.innerHTML = listElement.innerHTML + 
-        `
-            <li class="student">
-                <p class="student-name">
+        `   
+            <li class="student" data-color="${colorInputElement.value}">
+                <p class="student-name" data-name="${nameInputElement.value}">
                     ${nameInputElement.value}, любимый цвет <span style="color: ${colorInputElement.value}"> ${colorInputElement.value}</span>
                 </p>
             </li>
@@ -61,7 +79,7 @@ buttonElement.addEventListener("click", () => {
 
 // При использовании innerHTML обработчики слетают, поэтому снова запускаем функцию обработчика событий каждого элемента после добавления новых элементов
     initEventListeners();
-
+    nameEventListeners();
 // Очистка формы после отправки коммента:
     nameInputElement.value = "";
 });
