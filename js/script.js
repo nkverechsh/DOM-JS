@@ -6,10 +6,19 @@ const secondButtonElement = document.getElementById("second-button");
 const titleElement = document.getElementById("title");
 const nameInputElement = document.getElementById("name-input");
 const colorInputElement = document.getElementById("color-input");
+
 const allElement = document.querySelectorAll("body");
 
 const studentElements = document.querySelectorAll(".student");
 const studentNameElements = document.querySelectorAll("student-name");
+
+// Баловство с заголовком
+titleElement.addEventListener("click", () => {
+    // нам нужно добавить обработчик события на кнопку "добавить" .addEventListener -
+    // - данный метод прослушивает события, 1 аргументом принимает (у нас "click"), а 2 аргумент
+    // callback ф-ция, которую он вызовет, когда событие произойдёт (у нас это вывод в консоль)
+    alert("Не стоило на меня нажимать");
+});
 
 // функция добавляет обработчик событий на динамические элементы с классом student (для дальнейшего удаления строки (элемента))
 const initEventListeners = () => {
@@ -51,12 +60,18 @@ const nameEventListeners = () => {
 
     nameEventListeners();
 
-titleElement.addEventListener("click", () => {
-    // нам нужно добавить обработчик события на кнопку "добавить" .addEventListener -
-    // - данный метод прослушивает события, 1 аргументом принимает (у нас "click"), а 2 аргумент
-    // callback ф-ция, которую он вызовет, когда событие произойдёт (у нас это вывод в консоль)
-    alert("Не стоило на меня нажимать");
-});
+const initDeleteButtonsListeners = () => {
+    const deleteButtonsElements = document.querySelectorAll(".delete-button");
+
+    for (const deleteButtonElement of deleteButtonsElements) {
+        deleteButtonElement.addEventListener("click", () => {
+            console.log("Удаляю элемент");
+
+        });
+    }
+};
+
+    initDeleteButtonsListeners();
 
 buttonElement.addEventListener("click", () => {
     // Сброс ошибки заполнения формы имени
@@ -67,21 +82,26 @@ buttonElement.addEventListener("click", () => {
         return;
     }
 
-    // const oldList = listElement.innerHTML;
-
         listElement.innerHTML = listElement.innerHTML + 
         `   
             <li class="student" data-color="${colorInputElement.value}">
                 <p class="student-name" data-name="${nameInputElement.value}">
                     ${nameInputElement.value}, любимый цвет <span style="color: ${colorInputElement.value}"> ${colorInputElement.value}</span>
                 </p>
+                <b class="delete-button">Удалить</b>
             </li>
         `;
 
 // При использовании innerHTML обработчики слетают, поэтому снова запускаем функцию обработчика событий каждого элемента после добавления новых элементов
     initEventListeners();
     nameEventListeners();
+    initDeleteButtonsListeners();
+
 // Очистка формы после отправки коммента:
     nameInputElement.value = "";
+
+// После отправки актив курсора в поле имени
+    nameInputElement.focus();
 });
+
 
