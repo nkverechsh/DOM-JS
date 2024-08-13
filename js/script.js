@@ -12,6 +12,48 @@ const allElement = document.querySelectorAll("body");
 const studentElements = document.querySelectorAll(".student");
 const studentNameElements = document.querySelectorAll("student-name");
 
+const students = [
+    {
+        name: "Глеб",
+        color: "#ff2600",
+        count: 1,
+    },
+    {
+        name: "Иван",
+        color: "№00f900",
+        count: 2,
+    },
+    {
+        name: "Петя",
+        color: "#0432ff",
+        count: 3,
+    },
+];
+
+const renderStudents = () => {
+    const studentsHtml = students.map((student, index) => {
+        return  `<section class="all__comment"
+                    <li class="student" data-color="${student.color}">
+                        <p class="student-name" data-name="${student.name}">
+                            ${student.name}, любимый цвет <span style="color: ${student.color}"> ${student.color}</span>
+                        </p>
+                        <div class="likes">
+                            <span id="likeNumber" class="likes-counter" data-counter="${students.count}">111</span>
+                            <button id="commentLike" class="like-button -active-like"></button>
+                        </div>
+                    </li>
+
+                </section>
+                <button data-index="${index}" class="delete-button">Удалить</button>`
+    }).join("");
+
+    listElement.innerHTML = studentsHtml;
+
+    initEventListeners(); //  обработчик событий на динамические элементы с классом student
+    nameEventListeners(); // Приветствуем по имени при нажатии на него
+    initDeleteButtonsListeners(); // Удаление элемента
+};
+
 // Баловство с заголовком
 titleElement.addEventListener("click", () => {
     // нам нужно добавить обработчик события на кнопку "добавить" .addEventListener -
@@ -41,7 +83,6 @@ const initEventListeners = () => {
     }
 };
 
-initEventListeners();
 
 const nameEventListeners = () => {
     // находит все элементы с классом student в разметке
@@ -58,20 +99,30 @@ const nameEventListeners = () => {
         }
     };
 
-    nameEventListeners();
 
 const initDeleteButtonsListeners = () => {
     const deleteButtonsElements = document.querySelectorAll(".delete-button");
 
     for (const deleteButtonElement of deleteButtonsElements) {
         deleteButtonElement.addEventListener("click", () => {
-            console.log("Удаляю элемент");
 
+// Удаление элемента:
+// 1. Храним списов в JS массиве
+// 2. При клике удаляем нужный элемент из массива
+// 3. На основе нового массива в js формируем html разметку списка
+
+// Реализация удаления элемента по индексу с помощью метода .splice
+        const index = deleteButtonElement.dataset.index;
+        students.splice(index, 1);
+// Рендерим новую разментку после удаления элемента
+        renderStudents();
         });
     }
 };
 
-    initDeleteButtonsListeners();
+    renderStudents();
+
+// Добавление нового элемента
 
 buttonElement.addEventListener("click", () => {
     // Сброс ошибки заполнения формы имени
@@ -82,20 +133,26 @@ buttonElement.addEventListener("click", () => {
         return;
     }
 
-        listElement.innerHTML = listElement.innerHTML + 
-        `   
-            <li class="student" data-color="${colorInputElement.value}">
-                <p class="student-name" data-name="${nameInputElement.value}">
-                    ${nameInputElement.value}, любимый цвет <span style="color: ${colorInputElement.value}"> ${colorInputElement.value}</span>
-                </p>
-                <b class="delete-button">Удалить</b>
-            </li>
-        `;
+    students.push({
+        name: nameInputElement.value,
+        color: colorInputElement.value,
+    });
+
+/*
+                Убираем данный код, т.к. теперь новый элемент добавляется через .push в массив  
+                        listElement.innerHTML = listElement.innerHTML + 
+                        `   
+                            <li class="student" data-color="${colorInputElement.value}">
+                                <p class="student-name" data-name="${nameInputElement.value}">
+                                    ${nameInputElement.value}, любимый цвет <span style="color: ${colorInputElement.value}"> ${colorInputElement.value}</span>
+                                </p>
+                                <button class="delete-button">Удалить</button>
+                            </li>
+                        `;
+*/
 
 // При использовании innerHTML обработчики слетают, поэтому снова запускаем функцию обработчика событий каждого элемента после добавления новых элементов
-    initEventListeners();
-    nameEventListeners();
-    initDeleteButtonsListeners();
+    renderStudents(); // Добавление новой строки в список
 
 // Очистка формы после отправки коммента:
     nameInputElement.value = "";
@@ -103,5 +160,4 @@ buttonElement.addEventListener("click", () => {
 // После отправки актив курсора в поле имени
     nameInputElement.focus();
 });
-
 
